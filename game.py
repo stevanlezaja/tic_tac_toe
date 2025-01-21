@@ -5,7 +5,7 @@ PLAYERS = ['x', 'o']
 
 class Game:
     def __init__(self):
-        self.board = [[" ", " ", " "],[" ", " ", " "],[" ", " ", " "]]
+        self.board = [["I", " ", " "],[" ", " ", " "],[" ", " ", " "]]
         self.current_player = 0
         self.msg = ""
         self.selected = [0, 0]
@@ -67,3 +67,22 @@ class Game:
             if i < ROW - 1:
                 print('\n-+-+-')
         print('\n', self.msg)
+
+    def check_end_condition(self):
+        for i in range(ROW):
+            if self.board[i][0] == self.board[i][1] == self.board[i][2] and self.board[i][0] != " ":
+                self.msg = f"Player {self.board[i][0]}'s win!"
+                return True
+        for j in range(COL):
+            if self.board[0][j] == self.board[1][j] == self.board[2][j] and self.board[0][j] != " ":
+                self.msg = f"Player {self.board[0][j]}'s win!"
+                return True
+        if self.board[0][0] == self.board[1][1] == self.board[2][2] and self.board[0][0] != " ":
+            self.msg = f"Player {self.board[0][0]}'s win!"
+            return True
+        if self.board[0][2] == self.board[1][1] == self.board[2][0] and self.board[0][2] != " ":
+            self.msg = f"Player {self.board[0][2]}'s win!"
+            return True
+        if all([self.board[i][j] != " " for i in range(ROW) for j in range(COL)]):
+            self.msg = "Draw!"
+            return True
